@@ -1,0 +1,6 @@
+[deps]
+ConditionalDists = "c648c4dd-c1e0-49a6-84b9-144ae7fd2468"
+Flux = "587475ba-b771-5e3f-ad9e-33799f191a9c"
+GMExtensions = "3c20387b-77eb-584c-935d-38209916be70"
+GenerativeModels = "6ac2c632-c4cd-11e9-0501-33c4b9b2f9c9"
+IPMeasures = "d7dc6e0c-a753-11e8-227e-b362679e0b17"
