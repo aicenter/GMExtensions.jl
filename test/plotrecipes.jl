@@ -19,4 +19,5 @@
     plothistory(h)
 
     plotreconstruction(rand(100,2), rand(100,2))
+    @test true
 end

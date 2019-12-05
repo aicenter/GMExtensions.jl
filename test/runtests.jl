@@ -1,5 +1,6 @@
 using Test
 using ProgressMeter
+using ValueHistories
 using Plots
 using Flux
 using ConditionalDists

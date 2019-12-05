@@ -303,6 +303,14 @@ git-tree-sha1 = "49bf793ebd37db5adaa7ac1eae96c2c97ec86db5"
 uuid = "069b7b12-0de2-55c6-9aab-29f3d0a68a2e"
 version = "1.0.0"
 
+[[GMExtensions]]
+deps = ["ConditionalDists", "DrWatson", "Flux", "GenerativeModels", "IPMeasures", "ProgressMeter", "Revise", "StatsPlots", "UnicodePlots", "ValueHistories"]
+git-tree-sha1 = "a29c48ef3b8d5389d09105318f68728276b0af1f"
+repo-rev = "master"
+repo-url = "/home/niklas/repos/GMExtensions.jl/"
+uuid = "5fd45191-b8c4-440d-b1ae-784c0881f0c1"
+version = "0.1.0"
+
 [[GPUArrays]]
 deps = ["AbstractFFTs", "Adapt", "LinearAlgebra", "Printf", "Random", "Serialization"]
 git-tree-sha1 = "e756da6cee76a5f1436a05827fa8fdf3badc577f"

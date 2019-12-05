@@ -14,7 +14,7 @@ function progress_callback(prog::Progress, iter::Array{Int,0}, model::AbstractGM
         p1 = latentboxplot(μz, 1:size(μz,1), size=(700,300), ylimits=(-2,2));
         p2 = plotreconstruction(test_data[:,1:3], mean(model.decoder, μz[:,1:3]),
                                  size=(700,300), ylimits=(vmin,vmax));
-        plt = plot(p1, p2))
+        plt = plot(p1, p2)
         sv = [(:iter, iter),
               (:loss, loss(test_data)),
               (:plot, repr(display(plt)))]
