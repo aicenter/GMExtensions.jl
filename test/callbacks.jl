@@ -20,6 +20,7 @@
 
     for ii in 1:niter
         curr_iter .+= 1
+        test_data .= rand(Float32, 5, 10)
         for cb in callbacks cb() end
     end
 

@@ -34,7 +34,7 @@ function reidentify(z::AbstractMatrix, zmask::AbstractMatrix, u::AbstractMatrix,
             end
             gs = Zygote.Grads(d)
             Flux.Optimise.update!(opt, ps, gs)
-            println("ii=$ii N=$N loss=$(loss())")
+            @debug "ii=$ii N=$N loss=$(loss())"
         catch ex
             rethrow(ex)
         end

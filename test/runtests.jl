@@ -11,3 +11,4 @@ using GMExtensions
 include("layers.jl")
 include("plotrecipes.jl")
 include("callbacks.jl")
+include("reidentify.jl")
