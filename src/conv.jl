@@ -67,7 +67,8 @@ function conv_encoder(xsize::Union{Tuple, Vector}, zsize::Int, kernelsizes::Unio
 end
 
 """
-    conv_decoder(xsize, zsize, kernelsizes, channels, scalings[; activation, densedims])
+    conv_decoder(xsize, zsize, kernelsizes, channels, scalings[; activation, densedims, vec_output,
+        vec_output_dim])
 
 Constructs a convolutional encoder.
 
@@ -79,6 +80,8 @@ Constructs a convolutional encoder.
 - `scalings`: scalings vector
 - `activation`: default relu
 - `densedims`: if set, more than one dense layers are used 
+- `vec_output`: output is vectorized (default false)
+- `vec_output_dim`: determine what the final size of the vectorized input should be (e.g. add extra dimensions for variance estimation)
 
 # Example
 ```julia-repl
@@ -93,7 +96,8 @@ julia> size(y)
 """
 function conv_decoder(xsize::Union{Tuple, Vector}, zsize::Int, kernelsizes::Union{Tuple, Vector}, 
     channels::Union{Tuple, Vector}, scalings::Union{Tuple, Vector}; 
-    activation = relu, densedims::Union{Tuple, Vector} = [])
+    activation = relu, densedims::Union{Tuple, Vector} = [], 
+    vec_output = false, vec_output_dim = nothing)
     nconv = length(kernelsizes)
     (nconv == length(channels) == length(scalings)) ? nothing : error("incompatible input dimensions")
     (length(xsize) == 3) ? nothing : error("xsize must be (h, w, c)")
@@ -123,7 +127,7 @@ function conv_decoder(xsize::Union{Tuple, Vector}, zsize::Int, kernelsizes::Unio
     # reshape
     push!(layers, x -> reshape(x, ho, wo, channels[1], :))
 
-    # add the transpose nad convolutional layers
+    # add the transpose and convolutional layers
     acts = vcat([activation for _ in 1:nconv-1]..., identity) 
     for (k, ci, co, s, act) in zip(kernelsizes, cins, couts, scalings, acts)
         pad = Int((k-1)/2)
@@ -132,5 +136,13 @@ function conv_decoder(xsize::Union{Tuple, Vector}, zsize::Int, kernelsizes::Unio
         push!(layers, Conv((k,k), ci=>co, act; pad = (pad, pad)))
     end
 
+    # if you want vectorized output
+    if vec_output
+        push!(layers, x -> reshape(x, reduce(*, xsize), :))
+        # if you want the final vector to be a different size than the output 
+        # (e.g. you want extra dimensions for variance estimation)
+        (vec_output_dim == nothing) ? nothing : push!(layers, Dense(reduce(*, xsize), vec_output_dim))
+    end
+    
     Flux.Chain(layers...)
 end

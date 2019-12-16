@@ -41,5 +41,19 @@
     @test all(param_change(enc_params, encoder))
     GenerativeModels.update_params!(decoder, data, loss, opt)
     @test all(param_change(dec_params, decoder))
+
+    # test vectorization of output
+    decoder = GMExtensions.conv_decoder(xsize, ldim, reverse(kernelsizes), 
+        reverse(nchannels), reverse(scalings); densedims = densedims, vec_output = true)
+    z = decoder(y)
+    @test size(z) == (reduce(*, xsize), 6)
+    @test size(reshape(z, s...)) == s
+
+    decoder = GMExtensions.conv_decoder(xsize, ldim, reverse(kernelsizes), 
+        reverse(nchannels), reverse(scalings); densedims = densedims, vec_output = true,
+        vec_output_dim = reduce(*, xsize) + 1)
+    z = decoder(y)
+    @test size(z) == (reduce(*, xsize) + 1, 6)
+
 end 
 
