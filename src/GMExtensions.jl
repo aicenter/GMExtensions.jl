@@ -21,4 +21,5 @@ module GMExtensions
     include("callbacks.jl")
     # include("train.jl")
     include("reidentify.jl")
+    include("conv.jl")
 end
