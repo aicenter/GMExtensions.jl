@@ -1,6 +1,6 @@
 @testset "reidentify" begin
-    enc = CMeanVarGaussian{Float32,ScalarVar}(Dense(4,5))
-    dec = CMeanVarGaussian{Float32,ScalarVar}(Dense(4,5))
+    enc = CMeanVarGaussian{ScalarVar}(Dense(4,5))
+    dec = CMeanVarGaussian{ScalarVar}(Dense(4,5))
     model = VAE(4, enc, dec)
     opt = ADAM()
 

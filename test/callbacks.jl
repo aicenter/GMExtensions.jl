@@ -1,8 +1,8 @@
 @testset "callbacks" begin
     unicodeplots()
 
-    enc = CMeanGaussian{Float32,DiagVar}(Dense(5,2), ones(Float32,2))
-    dec = CMeanVarGaussian{Float32,ScalarVar}(Dense(2,6))
+    enc = CMeanGaussian{DiagVar}(Dense(5,2), ones(Float32,2))
+    dec = CMeanVarGaussian{ScalarVar}(Dense(2,6))
     model = VAE(2, enc, dec)
     loss(x) = elbo(model, x)
     opt = ADAM()
