@@ -1,6 +1,18 @@
+export Bias
 export LinearMap
 export SplitLayer
 export CatLayer
+
+struct Bias{T,F}
+    b::T
+    σ::F
+end
+
+Bias(len::Int, σ=identity; init=zeros) = Bias(init(Float32,len), σ)
+(m::Bias)() = m.σ.(m.b)
+(m::Bias)(x::AbstractArray) = m()
+Flux.@functor Bias
+
 
 struct LinearMap
     W::AbstractArray
