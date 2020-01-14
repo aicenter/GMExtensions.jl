@@ -25,7 +25,7 @@ export plotreconstruction
 end
 
 @userplot AnnotatedHeatmap
-@recipe function f(h::AnnotatedHeatmap; annotationargs = ())
+@recipe function f(h::AnnotatedHeatmap; annotationargs=(:white,))
     y = h.args[1]              #Get the input arguments, stored in h.args 
                                # - in this case there's only one
     typeof(y) <: AbstractMatrix || error("Pass a Matrix as the arg to heatmap")
