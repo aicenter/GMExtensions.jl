@@ -5,18 +5,18 @@ export relevance_mask
     reidentify(z::AbstractMatrix, zmask::AbstractMatrix,
                u::AbstractMatrix, decoder::AbstractCPDF, opt; N=200)
 
-Optimize MSE(decoder(z) - u) where only the values of z that are specified by
-zmask are allowed to change.
+Optimize MSE(decoder(z), u) where only the values of z that are specified by
+zmask are allowed to change. z and u are assumed to have samples in the second
+dimension.
 
 # Arguments
-* `z`: typically latent variables typically sampled from the encoder of an AbstractGM
+* `z`: latent variables typically sampled from the encoder of an AbstractGM
 * `zmask`: specifies that values of z that are allowed to change during optimisation
 * `u`: labels for optimisation
 * `decoder`: decodes z into u-space
 * `opt`: Flux optimiser
 * `N`: optimisation steps
 """
-# function reoptimize_latent!(model, u, z, opt, zmask; N=200)
 function reidentify(z::AbstractMatrix, zmask::AbstractMatrix, u::AbstractMatrix,
                     decoder::AbstractCPDF, opt; N=200)
     zr = copy(z)
@@ -34,7 +34,7 @@ function reidentify(z::AbstractMatrix, zmask::AbstractMatrix, u::AbstractMatrix,
             end
             gs = Zygote.Grads(d)
             Flux.Optimise.update!(opt, ps, gs)
-            @debug "ii=$ii N=$N loss=$(loss())"
+            @info "ii=$ii N=$N loss=$(loss())"
         catch ex
             rethrow(ex)
         end
@@ -42,7 +42,15 @@ function reidentify(z::AbstractMatrix, zmask::AbstractMatrix, u::AbstractMatrix,
     return zr
 end
 
-# function reidentify(u, model, batch, opt, relevance_mask; N=100)
+"""
+    reidentify(zmask::AbstractVector, u::AbstractVector, zbatchsize::Int,
+               model::AbstractGM, opt; N=100)
+
+Optimize MSE(decoder(z), u) where only values of z that are specified by zmask
+are allowed to change. z is sampled `zbatchsize` times via
+`rand(model.encoder,u)`. After `N` steps with the given optimizer only the best
+of the sampled `z`s is returned.
+"""
 function reidentify(zmask::AbstractVector, u::AbstractVector, zbatchsize::Int,
                     model::AbstractGM, opt; N=100)
     U = repeat(u, inner=(1, zbatchsize))
@@ -64,9 +72,9 @@ function reidentify(zmask::AbstractVector, u::AbstractVector, zbatchsize::Int,
     (z, x, zr, xr)
 end
 
-function relevance_mask(Z::AbstractMatrix, σmax=0.05, μmax=0.05)
-    μ = [mean(Z[ii,:]) for ii in 1:size(Z,1)]
-    σ = [std(Z[ii,:]) for ii in 1:size(Z,1)]
+function relevance_mask(Z::AbstractMatrix; σmax=0.05, μmax=0.05)
+    μ = dropdims(mean(Z, dims=2), dims=2)
+    σ = dropdims(std(Z, dims=2), dims=2)
     s = σ .> σmax
     m = abs.(μ) .> μmax
     m .| s
