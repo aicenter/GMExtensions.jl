@@ -1,36 +1,6 @@
-export Gate
-export Bias
 export LinearMap
 export SplitLayer
 export CatLayer
-
-struct Gate{T,F}
-    b::T
-    σ::F
-end
-
-Gate(len::Int, σ=identity; init=zeros) = Gate(init(Float32,len), σ)
-
-function (m::Gate)(x::AbstractArray)
-    b, σ = m.b, m.σ
-    s = sign.(x)
-    s = prod(s, dims=1)
-    g = σ.(b)
-    g .+ (1 .- g) .* s
-end
-
-Flux.@functor Gate
-
-struct Bias{T,F}
-    b::T
-    σ::F
-end
-
-Bias(len::Int, σ=identity; init=zeros) = Bias(init(Float32,len), σ)
-(m::Bias)() = m.σ.(m.b)
-(m::Bias)(x::AbstractArray) = m()
-Flux.@functor Bias
-
 
 struct LinearMap
     W::AbstractArray
