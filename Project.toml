@@ -11,9 +11,28 @@ GenerativeModels = "6ac2c632-c4cd-11e9-0501-33c4b9b2f9c9"
 IPMeasures = "d7dc6e0c-a753-11e8-227e-b362679e0b17"
 Plots = "91a5bcdd-55d7-5caf-9e0b-520d859cae80"
 ProgressMeter = "92933f4c-e287-5a05-a399-4b506db050ca"
-Revise = "295af30f-e4ad-537b-8983-00126c2a3abe"
 Statistics = "10745b16-79ce-11e8-11f9-7d13ad32a3b2"
 StatsPlots = "f3b207a7-027a-5e70-b257-86293d7955fd"
 UnicodePlots = "b8865327-cd53-5732-bb35-84acbb429228"
 ValueHistories = "98cad3c8-aec3-5f06-8e41-884608649ab7"
 Zygote = "e88e6eb3-aa80-5325-afca-941959d7151f"
+
+[compat]
+ConditionalDists = "0.1"
+DrWatson = "1.9"
+Flux = "0.10"
+GenerativeModels = "0.1"
+IPMeasures = "0.1"
+Plots = "0.29"
+ProgressMeter = "1.2"
+StatsPlots = "0.14"
+UnicodePlots = "1.2"
+ValueHistories = "0.5"
+Zygote = "0.4"
+julia = "1"
+
+[extras]
+Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
+
+[targets]
+test = ["Test"]

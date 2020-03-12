@@ -19,3 +19,9 @@ end
     @test length(params(m)) == 4
     @test size(m(rand(3,10))) == (6,10)
 end
+
+@testset "Bias" begin
+    m = Bias(3)
+    @test length(params(m)) == 1
+    @test size(m(rand(3))) == (3,)
+end

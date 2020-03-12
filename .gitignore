@@ -1,4 +1,9 @@
+# julia
 *.jl.cov
 *.jl.*.cov
 *.jl.mem
 deps/deps.jl
+Manifest.toml
+
+# vim
+*.swp
