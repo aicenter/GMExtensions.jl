@@ -14,7 +14,7 @@ module GMExtensions
     using IPMeasures
     using GenerativeModels
 
-    using GenerativeModels: AbstractVAE, AbstractGM, AbstractCPDF
+    using GenerativeModels: AbstractVAE, AbstractGM, ACD
 
     include("layers.jl")
     include("plotrecipes.jl")

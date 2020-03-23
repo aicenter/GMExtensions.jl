@@ -3,7 +3,7 @@ export relevance_mask
 
 """
     reidentify(z::AbstractMatrix, zmask::AbstractMatrix,
-               u::AbstractMatrix, decoder::AbstractCPDF, opt; N=200)
+               u::AbstractMatrix, decoder::ACD, opt; N=200)
 
 Optimize MSE(decoder(z), u) where only the values of z that are specified by
 zmask are allowed to change. z and u are assumed to have samples in the second
@@ -18,7 +18,7 @@ dimension.
 * `N`: optimisation steps
 """
 function reidentify(z::AbstractMatrix, zmask::AbstractMatrix, u::AbstractMatrix,
-                    decoder::AbstractCPDF, opt; N=200)
+                    decoder::ACD, opt; N=200)
     zr = copy(z)
     ps = Flux.Params([zr])
     loss() = -sum(loglikelihood(decoder, u, zr))
