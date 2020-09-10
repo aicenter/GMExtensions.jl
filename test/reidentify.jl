@@ -1,6 +1,6 @@
 @testset "reidentify" begin
-    enc = CMeanVarGaussian{ScalarVar}(Dense(4,5))
-    dec = CMeanVarGaussian{ScalarVar}(Dense(4,5))
+    enc = ConditionalMvNormal(Dense(5,4))
+    dec = ConditionalMvNormal(Dense(4,5))
     model = VAE(4, enc, dec)
     opt = ADAM()
 
