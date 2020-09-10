@@ -4,6 +4,7 @@ authors = ["Niklas Heim <heim.niklas@gmail.com>"]
 version = "0.1.0"
 
 [deps]
+BSON = "fbb218c0-5317-5bc6-957e-2ee96dd4b1f0"
 ConditionalDists = "c648c4dd-c1e0-49a6-84b9-144ae7fd2468"
 DrWatson = "634d3b9d-ee7a-5ddf-bec9-22491ea816e1"
 Flux = "587475ba-b771-5e3f-ad9e-33799f191a9c"
@@ -16,20 +17,6 @@ StatsPlots = "f3b207a7-027a-5e70-b257-86293d7955fd"
 UnicodePlots = "b8865327-cd53-5732-bb35-84acbb429228"
 ValueHistories = "98cad3c8-aec3-5f06-8e41-884608649ab7"
 Zygote = "e88e6eb3-aa80-5325-afca-941959d7151f"
-
-[compat]
-ConditionalDists = "0.3"
-DrWatson = "1.9"
-Flux = "0.10"
-GenerativeModels = "0.1"
-IPMeasures = "0.1"
-Plots = "0.29"
-ProgressMeter = "1.2"
-StatsPlots = "0"
-UnicodePlots = "1.2"
-ValueHistories = "0.5"
-Zygote = "0.4"
-julia = "1"
 
 [extras]
 Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"

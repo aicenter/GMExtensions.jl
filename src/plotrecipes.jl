@@ -100,6 +100,7 @@ end
             subplot := nr
             ylabel := key
             legend := false
+            linewidth := 2
             x, y
         end
     end

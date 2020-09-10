@@ -4,6 +4,7 @@ module GMExtensions
     using DrWatson
     using ProgressMeter
     using ValueHistories
+    using BSON
 
     using Plots
     using StatsPlots
@@ -16,6 +17,9 @@ module GMExtensions
 
     using GenerativeModels: AbstractVAE, AbstractGM, ACD
 
+    export save_checkpoint, load_checkpoint
+
+    include("saveload.jl")
     include("layers.jl")
     include("plotrecipes.jl")
     include("callbacks.jl")
